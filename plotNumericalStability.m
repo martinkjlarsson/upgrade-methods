@@ -59,10 +59,6 @@ edges = -17:0.25:1; % Figure 1 in paper.
 % edges = -16:0.25:2; % Figure 2 in paper.
 centers = edges(1:end-1)+diff(edges)/2;
 
-% We do not plot the 450 solver. It is not particulary interesting since we
-% might just as well use the 540 for that kind of sample.
-plotSolvers = [1 2 3 4 5 6 7 8 9 11];
-
 % Swap the 2nd and 3rd line color for consistency with Figure 3.
 lineColors = lines(length(solvers));
 tmp = lineColors(2,:);
@@ -70,8 +66,8 @@ lineColors(2,:) = lineColors(3,:);
 lineColors(3,:) = tmp;
 
 figure(1);
-for k=1:length(plotSolvers)
-    hc = histcounts(log10(ress(plotSolvers(k),:)),edges)/iters;
+for k=1:length(solvers)
+    hc = histcounts(log10(ress(k,:)),edges)/iters;
     if k <= 7
         plot(centers,hc,'-','LineWidth',2,'Color',lineColors(k,:));
     else
@@ -85,16 +81,16 @@ title('Numerical stability for all solvers');
 xlabel('log_{10}(error)');
 % axis([edges(1) edges(end) 0 0.1]); % Figure 1 in paper.
 axis([edges(1) edges(end) ylim]);
-legend({solvers(plotSolvers).name},'Location','EastOutside');
+legend({solvers.name},'Location','EastOutside');
 
 % set(gca,'FontName','Times');
 % set(gca,'FontSize',14);
 
 %% Plot failure rate.
 figure(2);
-bp = bar(failures(plotSolvers)/iters*100,'FaceColor','flat');
-bp.CData = lineColors(1:length(plotSolvers),:);
+bp = bar(failures/iters*100,'FaceColor','flat');
+bp.CData = lineColors(1:length(solvers),:);
 ylabel('%');
-xticklabels({solvers(plotSolvers).name});
+xticklabels({solvers.name});
 title('Percentage of failures');
 

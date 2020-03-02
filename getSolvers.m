@@ -40,10 +40,13 @@ function solvers = getSolvers()
     solvers(8).solve = @(sample,opts) upgradeGeneral(sample,opts,@solver_toa_upgrade_540_sat);
     solvers(9).id = [5 3 1];
     solvers(9).solve = @(sample,opts) upgradeGeneral(sample,opts,@solver_toa_upgrade_531_sat);
-    solvers(10).id = [4 5 0];
-    solvers(10).solve = @(sample,opts) upgradeGeneral(sample,opts,@solver_toa_upgrade_450_sat);
-    solvers(11).id = [4 4 1];
-    solvers(11).solve = @(sample,opts) upgradeGeneral(sample,opts,@solver_toa_upgrade_441_sat);
+    % We ignore the 450 solver and also solvers more nonlinear than 441 as
+    % by swapping the receivers and senders one of the solvers here should
+    % work and will probably be more stable.
+%     solvers(10).id = [4 5 0];
+%     solvers(10).solve = @(sample,opts) upgradeGeneral(sample,opts,@solver_toa_upgrade_450_sat);
+    solvers(10).id = [4 4 1];
+    solvers(10).solve = @(sample,opts) upgradeGeneral(sample,opts,@solver_toa_upgrade_441_sat);
 
     for k=1:length(solvers)
         solvers(k).name = sprintf('%d%d%d',solvers(k).id);
