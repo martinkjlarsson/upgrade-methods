@@ -121,7 +121,7 @@ MatrixXcd solver_toa_upgrade_sat_630(const VectorXd &data)
         AM.row(i) = RR.row(AM_ind[i]);
     }
 
-    Matrix<std::complex<double>, 3, 17> sols;
+    Matrix<std::complex<double>, 4, 17> sols;
     sols.setZero();
 
     // Solve eigenvalue problem
